@@ -1,0 +1,56 @@
+
+sudo /usr/bin/squeezelite-armv6hf -o front:CARD=Device,DEV=0 -s 192.168.0.9
+
+
+
+
+
+mkdir squeezelite
+cd squeezelite
+wget -O squeezelite-armv6hf http://ralph_irving.users.sourceforge.net/pico/squeezelite-armv6hf-noffmpeg
+sudo mv squeezelite-armv6hf /usr/bin
+sudo chmod a+x /usr/bin/squeezelite-armv6hf
+sudo /usr/bin/squeezelite-armv6hf -l
+
+
+
+
+cd /home/pi/squeezelite
+sudo wget http://www.gerrelt.nl/RaspberryPi/squeezelite_settings.sh
+sudo mv squeezelite_settings.sh /usr/local/bin
+sudo chmod a+x /usr/local/bin/squeezelite_settings.sh
+ 
+sudo wget http://www.gerrelt.nl/RaspberryPi/squeezelitehf.sh
+sudo mv squeezelitehf.sh /etc/init.d/squeezelite
+sudo chmod a+x /etc/init.d/squeezelite
+ 
+sudo wget http://www.gerrelt.nl/RaspberryPi/squeezelite.service
+sudo mv squeezelite.service /etc/systemd/system
+sudo systemctl enable squeezelite.service 
+cd /home/pi
+
+sudo nano /usr/local/bin/squeezelite_settings.sh
+
+
+
+sudo /usr/bin/squeezelite-armv6hf -o front:CARD=Device,DEV=0 -s 192.168.0.9 -n "Raspberry Pi Zero W"
+
+
+
+# interfaces(5) file used by ifup(8) and ifdown(8)
+
+# Please note that this file is written to be used with dhcpcd
+# For static IP, consult /etc/dhcpcd.conf and 'man dhcpcd.conf'
+
+# Include files from /etc/network/interfaces.d:
+source-directory /etc/network/interfaces.d
+
+auto lo
+iface lo inet loopback
+
+iface eth0 inet manual
+
+allow-hotplug wlan0
+iface wlan0 inet manual
+    wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+

@@ -1,0 +1,46 @@
+
+# Update from Jessie to Stretch
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo dpkg -C
+sudo apt-mark showhold
+sudo sed -i 's/jessie/stretch/g' /etc/apt/sources.list
+sudo sed -i 's/jessie/stretch/g' /etc/apt/sources.list.d/raspi.list
+sudo sed -i 's/jessie/stretch/g' /etc/apt/sources.list.d/mopidy.list
+
+
+# General Update
+
+sudo apt-get -y update
+sudo apt-get -y upgrade
+sudo apt-get -y dist-upgrade
+sudo apt-get autoclean
+sudo apt-get autoremove
+
+cat /etc/os-release
+
+
+###############################################
+
+# Create Encrypted WiFi Network Entry
+
+wpa_passphrase "SSID" "Passphrase"
+sudo nano /etc/wpa_supplicant\wpa_supplicant.conf
+
+###############################################
+
+# Set up Static IP Address
+
+ifconfig
+
+# Get the name of the interface
+
+sudo nano /etc/dhcpcd.conf
+
+
+interface TheInterfaceAddress
+static ip_address=192.168.0.9/24
+static routers=192.18.0.1
+static domain_name_servers=192.168.0.1
